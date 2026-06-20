@@ -45,7 +45,7 @@ def interpret(ast: AST.AST):
     :param ast:
     :return:
     """
-    code = ast.code
+    code = ast.get_code()
     for i, token in enumerate(code):
         if isinstance(token, node.Assign):
             target = code[i - 1]

@@ -8,7 +8,7 @@ with open("syntax.json", "r") as f:
 
 variables = []
 
-def lex(code: str):
+def lex(code: str) -> list[lt.Token]:
     """
     Preprocesses code to make a more machine friendly format
     :param code:
@@ -85,13 +85,13 @@ def lex(code: str):
 
         # variable reference
         if char == '$':
-            varname = ""
+            var_name = ""
             index = i + 1  # skip the '$'
 
             while index < len(code) and (code[index].isalnum() or code[index] == '_'):
-                varname += code[index]
+                var_name += code[index]
                 index += 1
-            lexed_code.append(lt.Token(lt.TokenType.VARIABLE, varname))
+            lexed_code.append(lt.Token(lt.TokenType.VARIABLE, var_name))
 
         # integer or float
         if char == '~' and code[i+1].isdigit() and num == False:
@@ -107,7 +107,7 @@ def lex(code: str):
                 lexed_code.append(lt.Token(lt.TokenType.NUMBER, int(num_)))
             except Exception as e:
                 print(e)
-        elif char != '~' and not code[i+1].isdigit() and num:
+        elif char == '~' and code[i+1].isdigit():
             lexed_code.append(lt.Token(lt.TokenType.CONVERT_INT, "convert_to_integer"))
         elif not char.isdigit() and char != '.':
             num = False
@@ -138,15 +138,15 @@ def lex(code: str):
                     break
                 index+=1
             # get variable name
-            varname = ""
+            var_name = ""
             while index < len(code):
                 if code[index] == ' ':
                     break
-                varname+=code[index]
+                var_name += code[index]
                 index+=1
-            if varname in keywords:
-                raise NameError(f"Variable '{varname}' is a keyword.")
-            lexed_code.append(lt.Token(lt.TokenType.VARIABLE, varname))
+            if var_name in keywords:
+                raise NameError(f"Variable '{var_name}' is a keyword.")
+            lexed_code.append(lt.Token(lt.TokenType.VARIABLE, var_name))
         i+=1
 
     if lexed_code[-1].type != lt.TokenType.EOL and lexed_code[-1].type != lt.TokenType.EOF:
