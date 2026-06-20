@@ -1,0 +1,108 @@
+class Node:
+    def __str__(self):
+        return "Node()"
+    def __repr__(self):
+        return "Node()"
+
+class Number(Node):
+    def __init__(self, value: float | int):
+        self.value = value
+    def __str__(self):
+        return f"Number({self.value})"
+    def __repr__(self):
+        return f"Number({self.value})"
+
+class BinaryOperationPlaceholder(Node):
+    def __init__(self, operation: str):
+        if operation in ["+", "-", "*", "/"]:
+            self.operation = operation
+    def __str__(self):
+        return f"BinaryOperationPlaceholder({self.operation})"
+    def __repr__(self):
+        return f"BinaryOperationPlaceholder({self.operation})"
+
+class BinaryOperation(Node):
+    def __init__(self, left: Node, operation: str, right: Node):
+        self.left = left
+        if operation in ["+", "-", "*", "/"]:
+            self.operation = operation
+        self.right = right
+    def __str__(self):
+        return f"BinaryOperation(Operation: {self.operation}, Left Node: {self.left}, Right Node: {self.right})"
+    def __repr__(self):
+        return f"BinaryOperation(Operation: {self.operation}, Left Node: {self.left}, Right Node: {self.right})"
+
+class EOF(Node):
+    def __str__(self):
+        return "EOF()"
+    def __repr__(self):
+        return "EOF()"
+
+class EOL(EOF):
+    def __str__(self):
+        return "EOL()"
+    def __repr__(self):
+        return "EOL()"
+
+class Variable(Node):
+    def __init__(self, name: str):
+        self.name = name
+    def __str__(self):
+        return f"Variable({self.name})"
+    def __repr__(self):
+        return f"Variable({self.name})"
+    def get_name(self):
+        return self.name
+
+class Assign(Node):
+    def __str__(self):
+        return "Assign()"
+    def __repr__(self):
+        return "Assign()"
+
+class Identifier(Node):
+    def __str__(self):
+        return "Identifier()"
+    def __repr__(self):
+        return "Identifier()"
+
+class Function(Node):
+    def __init__(self, name: str, args=None):
+        self.name = name
+        self.args = args
+    def __str__(self):
+        return f"Function(Name: {self.name}, Args: {self.args})"
+    def __repr__(self):
+        return f"Function(Name: {self.name}, Args: {self.args})"
+
+class String(Node):
+    def __init__(self, value: str):
+        self.value = value
+    def __str__(self):
+        return f"String({self.value})"
+    def __repr__(self):
+        return f"String({self.value})"
+
+class Start(Node):
+    def __init__(self, value: str):
+        self.value = value
+    def __str__(self):
+        return f"Start('{self.value}')"
+    def __repr__(self):
+        return f"Start('{self.value}')"
+
+class End(Node):
+    def __init__(self, value: str):
+        self.value = value
+    def __str__(self):
+        return f"End('{self.value}')"
+    def __repr__(self):
+        return f"End('{self.value}')"
+
+class Import(Node):
+    def __init__(self, file_path: str):
+        self.file_path = file_path
+    def __str__(self):
+        return f"Import('{self.file_path}')"
+    def __repr__(self):
+        return f"Import('{self.file_path}')"
