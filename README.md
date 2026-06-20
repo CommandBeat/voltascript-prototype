@@ -176,3 +176,9 @@ This imports a function from a local file and runs it.<br>
 #### <span style="color:red">DO **NOT** NAME LOCAL FILES AFTER **ANY** GLOBAL LIBRARIES.</span><br>
 
 #### Example: naming your file math, random or any other of the default libraries.
+
+## Run Voltascript
+To test if Voltascript works, run:
+```
+python runtime/shell.py test.vs
+```
