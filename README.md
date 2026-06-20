@@ -1,6 +1,12 @@
 # Voltascript
 Voltascript was created as a prototype, the real version will be made in C++ instead of Python for performance reasons.
 This project **may not** receive future updates, although the C++ version is guaranteed to get further updates and be worked on.<br>
+Not all functionality has been added yet, such as:
+- Functions
+- While loops
+- For loops<br>
+
+and more...<br>
 
 Do **NOT** forget, this was already made in Python(an already slow language) and it has zero optimization, do not expect anything out of this that is fast.
 
