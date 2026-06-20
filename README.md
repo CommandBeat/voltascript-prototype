@@ -180,5 +180,5 @@ This imports a function from a local file and runs it.<br>
 ## Run Voltascript
 To test if Voltascript works, run:
 ```
-python runtime/shell.py test.vs
+python -m runtime.shell test.vs
 ```
