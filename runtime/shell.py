@@ -1,4 +1,4 @@
-from runtime import run
+import run
 import sys
 
 if __name__ == '__main__':
