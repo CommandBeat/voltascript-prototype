@@ -41,7 +41,10 @@ You define a variable like this:<br>
 *var variable_name = value*<br>
 
 Example:
-``var i = 0``<br>
+```
+var i = 0
+log($i)
+```
 This creates a variable named 'i' with a value of 0
 
 ## Function Call and Definition
@@ -59,11 +62,11 @@ This creates a function that, when run, prints "Hi!"
 ## For and while loops
 ### For loops
 You define a for loop like this:<br>
-*for x in y {...}*
+*for (x in y) {...}*
 
 Example:
 ```
-for i in range(1, 10) {
+for (i in range(1, 10)) {
     log(i) // Output: 1.0, 2.0, 3.0... 10.0
 }
 ```
@@ -71,12 +74,12 @@ This prints 1 → 10<br>
 
 ### While loops
 You define a while loop like this:<br>
-*while condition {...}*
+*while (condition) {...}*
 
 Example:
 ```
 x = 10 // Starting value
-while x > 5 {
+while (x > 5) {
     print(x) // Output: 10.0, 9.0, 8.0, 7.0, 6.0
     x = x - 1 // Make sure to include this
 }
