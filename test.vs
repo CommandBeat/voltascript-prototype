@@ -1,5 +1,3 @@
-import math
-
-var i = 5 + 5 // hi I'm bob
-var x = 5 + $i * 2
-log($i)
+for (var i = 0 | $i < 20 | $i++) {
+    log("Hello World!")
+}

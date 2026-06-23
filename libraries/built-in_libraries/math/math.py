@@ -1,3 +1,5 @@
+from exceptions import run_exceptions
+
 # first 100 digits of pi
 pi: float = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
 """
@@ -13,15 +15,16 @@ def getfactorsof(n: int) -> list[int]:
     """
     Returns the factors of n.
     :param n:
+    :returns: list of factors
     """
     factors = [i for i in range(1, n + 1) if n % i == 0]
     return factors
 
 def isprime(n: int) -> bool:
     """
-    Checks if n is prime
+    Checks if n is a prime number
     :param n:
-    :return:
+    :return: if n is a prime number
     """
     return True if len(getfactorsof(n)) == 2 else False
 
@@ -29,7 +32,7 @@ def iseven(n: int) -> bool:
     """
     Checks if n is even
     :param n:
-    :return:
+    :return: if n is even
     """
     return True if n % 2 == 0 else False
 
@@ -38,7 +41,7 @@ def gcd(a: int, b: int) -> int:
     Returns the greatest common divisor of a and b.
     :param a:
     :param b:
-    :return:
+    :return: greatest common divisor
     """
     while b:
         a, b = b, a % b
@@ -46,10 +49,10 @@ def gcd(a: int, b: int) -> int:
 
 def lcm(a: int, b: int) -> int:
     """
-    Returns the least common multiple of a and b.
+    Returns the lowest common multiple of a and b.
     :param a:
     :param b:
-    :return:
+    :return: lowest common multiple
     """
     return abs(a*b) // gcd(a, b)
 
@@ -57,7 +60,7 @@ def factorial(n: int) -> int:
     """
     Returns the factorial of a number.
     :param n:
-    :return:
+    :return: factorial of n
     """
     result = 1
     for i in range(2, n+1):
@@ -89,7 +92,7 @@ def mean(nums: list[int | float]) -> float:
     """
     Returns the mean of a list of numbers.
     :param nums:
-    :return:
+    :return: mean of nums
     """
     sum_ = 0.0
     for num in nums:
@@ -100,20 +103,20 @@ def median(nums: list[int | float]) -> int | float:
     """
     Returns the median of a list of numbers.
     :param nums:
-    :return:
+    :return: median of nums
     """
     nums.sort()
     for i, num in enumerate(nums):
         if i == len(nums) // 2:
             return num
-    raise AvergagingError("Median not found")
+    raise run_exceptions.AveragingError("Median not found")
 
 def max(a: int | float, b: int | float) -> int | float:
     """
     Returns the largest option
     :param a:
     :param b:
-    :return:
+    :return: largest number
     """
     return a if a > b else b
 
@@ -122,32 +125,32 @@ def min(a: int | float, b: int | float) -> int | float:
     Returns the smallest option
     :param a:
     :param b:
-    :return:
+    :return: smallest number
     """
     return a if a < b else b
 
-def sqrt(num: int) -> float:
+def sqrt(n: int) -> float:
     """
-    Returns the square root of num
-    :param num:
-    :return:
+    Returns the square root of a number
+    :param n:
+    :return: square root of n
     """
-    return num ** 0.5
+    return n ** 0.5
 
-def cbrt(num: int) -> int:
+def cbrt(n: int) -> int:
     """
-    Returns the cube root of num
-    :param num:
-    :return:
+    Returns the cube root of a number
+    :param n:
+    :return: cube root of n
     """
-    return num ** (1/3)
+    return n ** (1/3)
 
 def sum(a: int | float, b: int | float) -> int | float:
     """
     Returns the sum of two numbers
     :param a:
     :param b:
-    :return:
+    :return: sum of a and b
     """
     return a + b
 
@@ -156,22 +159,22 @@ def mod(a: int | float, b: int | float) -> int | float:
     Returns the remainder of two numbers
     :param a:
     :param b:
-    :return:
+    :return: mod of a and b
     """
     return a % b
 
-def square(a: int) -> int:
+def square(n: int) -> int:
     """
-    Returns the square of a
-    :param a:
-    :return:
+    Returns the square of a number
+    :param n:
+    :return: square of a
     """
-    return a ** 2
+    return n ** 2
 
-def cube(a: int) -> int:
+def cube(n: int) -> int:
     """
-    Returns the cube of a
-    :param a:
-    :return:
+    Returns the cube of a number
+    :param n:
+    :return: cube of a
     """
-    return a ** 3
+    return b ** 3

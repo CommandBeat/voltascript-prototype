@@ -28,38 +28,49 @@ def lex(code: str) -> list[lt.Token]:
             continue
 
         # single char tokens
-        if char == '+':
-            lexed_code.append(lt.Token(lt.TokenType.PLUS, '+'))
-        elif char == '-':
-            lexed_code.append(lt.Token(lt.TokenType.MINUS, '-'))
         elif char == '*':
-            lexed_code.append(lt.Token(lt.TokenType.MULTIPLY, '*'))
+            lexed_code.append(lt.Token(lt.TokenType.MULTIPLY, char))
         elif char == '/':
-            lexed_code.append(lt.Token(lt.TokenType.DIVIDE, '/'))
+            lexed_code.append(lt.Token(lt.TokenType.DIVIDE, char))
         elif char == '=':
-            lexed_code.append(lt.Token(lt.TokenType.ASSIGN, '='))
-        elif char == ')':
-            lexed_code.append(lt.Token(lt.TokenType.RPAREN, ')'))
+            lexed_code.append(lt.Token(lt.TokenType.ASSIGN, char))
+        elif char == ')' or char == '}':
+            lexed_code.append(lt.Token(lt.TokenType.END, char))
         elif char == '{':
-            lexed_code.append(lt.Token(lt.TokenType.LCURLY_BRACE, '{'))
-        elif char == '}':
-            lexed_code.append(lt.Token(lt.TokenType.RCURLY_BRACE, '}'))
+            lexed_code.append(lt.Token(lt.TokenType.START, char))
+        elif char == '|':
+            lexed_code.append(lt.Token(lt.TokenType.SYMBOL, char))
+        elif char == '<' or char == '>' or char == "==":
+            lexed_code.append(lt.Token(lt.TokenType.COMPARISON, char))
+        elif code[i] == "\n":
+            lexed_code.append(lt.Token(lt.TokenType.EOL, '\\n'))
+            i += 1
 
         # multiple char tokens
-        if code[i] == "\n":
-            lexed_code.append(lt.Token(lt.TokenType.EOL, '\n'))
-            i += 2
+        if char == '+' and code[i+1] == '+':
+            lexed_code.append(lt.Token(lt.TokenType.INCREMENT, code[i:i+2]))
+        elif char == '-'and code[i+1] == '-':
+            lexed_code.append(lt.Token(lt.TokenType.DECREMENT, code[i:i+2]))
+        elif char == '+' and code[i-1] != '+':
+            lexed_code.append(lt.Token(lt.TokenType.PLUS, char))
+        elif char == '-' and code[i-1] != '-':
+            lexed_code.append(lt.Token(lt.TokenType.MINUS, char))
+
+        # override func
+        if char == '@':
+            lexed_code.append(lt.Token(lt.TokenType.OVERRIDE_FUNC, "@override"))
 
         # strings
-        if char == "'" or char == '"':
-            index = 0
+        if char == '"':
+            index = i + 1
             string = ""
             while index < len(code):
-                if code[index] == '"' or code[index] == "'":
+                if code[index] == '"' or code[index] == "\n":
                     break
                 string += code[index]
                 index += 1
             lexed_code.append(lt.Token(lt.TokenType.STRING, string))
+            i += index
 
         # import
         if code[i:i+len("import")] == "import":
@@ -72,7 +83,7 @@ def lex(code: str) -> list[lt.Token]:
                 if file.is_file() and file.name == library_name:
                     lexed_code.append(lt.Token(lt.TokenType.IMPORT_LIB, library_name))
                     break
-            i += len("import")
+            i += index
 
         # function reference
         if char == '(' and code[i-1].isalpha():
@@ -80,8 +91,11 @@ def lex(code: str) -> list[lt.Token]:
             while index >= 0:
                 index-=1
             func_name = code[index+1:i]
+            func_name = func_name.strip()
             lexed_code.append(lt.Token(lt.TokenType.FUNC_REF, func_name))
-            lexed_code.append(lt.Token(lt.TokenType.LPAREN, '('))
+            lexed_code.append(lt.Token(lt.TokenType.START, '('))
+        elif char == '(':
+            lexed_code.append(lt.Token(lt.TokenType.START, '('))
 
         # variable reference
         if char == '$':
@@ -92,6 +106,11 @@ def lex(code: str) -> list[lt.Token]:
                 var_name += code[index]
                 index += 1
             lexed_code.append(lt.Token(lt.TokenType.VARIABLE, var_name))
+
+        # for loop
+        if code[i:i+3] == "for":
+            lexed_code.append(lt.Token(lt.TokenType.IDENTIFIER, 'for'))
+            i += 3
 
         # integer or float
         if char == '~' and code[i+1].isdigit() and num == False:
@@ -129,26 +148,27 @@ def lex(code: str) -> list[lt.Token]:
             num = False
 
         # if it's a variable statement
-        if code[i:i+3] == "var" and i == 0:
+        if code[i:i+3] == "var":
             lexed_code.append(lt.Token(lt.TokenType.IDENTIFIER, "var"))
-            index = i+3
+            index = i + 3
             # skip whitespace(s)
             while index < len(code):
                 if not code[index] == ' ':
                     break
-                index+=1
+                index += 1
             # get variable name
             var_name = ""
             while index < len(code):
                 if code[index] == ' ':
                     break
                 var_name += code[index]
-                index+=1
+                index += 1
             if var_name in keywords:
                 raise NameError(f"Variable '{var_name}' is a keyword.")
             lexed_code.append(lt.Token(lt.TokenType.VARIABLE, var_name))
-        i+=1
 
-    if lexed_code[-1].type != lt.TokenType.EOL and lexed_code[-1].type != lt.TokenType.EOF:
+        i += 1
+
+    if lexed_code and lexed_code[-1].type != lt.TokenType.EOL and lexed_code[-1].type != lt.TokenType.EOF:
         lexed_code.append(lt.Token(lt.TokenType.EOF, ''))
     return lexed_code

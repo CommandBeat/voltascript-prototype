@@ -7,22 +7,26 @@ class TokenType(Enum):
     MINUS = 3
     MULTIPLY = 4
     DIVIDE = 5
-    LPAREN = 6
-    RPAREN = 7
-    ASSIGN = 8
-    IDENTIFIER = 9
-    VARIABLE = 10
-    COMMA = 11
-    COLON = 12
-    DEF_FUNCTION = 13
-    FUNC_REF = 15
-    STRING = 16
-    LCURLY_BRACE = 17
-    RCURLY_BRACE = 18
-    FUNCTION = 21
-    EOL = 22
-    IMPORT_LIB = 23
-    CONVERT_INT = 24
+    ASSIGN = 6
+    IDENTIFIER = 7
+    VARIABLE = 8
+    COMMA = 9
+    COLON = 10
+    DEF_FUNCTION = 11
+    FUNC_REF = 12
+    STRING = 13
+    START = 14
+    END = 15
+    FUNCTION = 16
+    EOL = 17
+    IMPORT_LIB = 18
+    CONVERT_INT = 19
+    CONDITION = 20
+    SYMBOL = 21
+    COMPARISON = 22
+    INCREMENT = 23
+    DECREMENT = 24
+    OVERRIDE_FUNC = 25
 
 class Token:
     def __init__(self, type_: TokenType, value):

@@ -49,7 +49,7 @@ def interpret(ast: AST.AST):
     for i, token in enumerate(code):
         if isinstance(token, node.Assign):
             target = code[i - 1]
-            expr = code[i + 1]
+            expr = token.value
             value = calculateBinaryOperation(expr)
             variables[target.get_name()] = value
         if isinstance(token, node.Function) and token.name == "log":
@@ -64,6 +64,9 @@ def interpret(ast: AST.AST):
                     print(calculateBinaryOperation(arg))
 
                 elif isinstance(arg, node.Number):
+                    print(arg.value)
+
+                elif isinstance(arg, node.String):
                     print(arg.value)
 
                 else:
