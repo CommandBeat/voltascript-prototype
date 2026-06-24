@@ -36,8 +36,8 @@ log(~10) // 10
 This prints 10.0 and 10
 
 ## Variable Declaration
-You define a variable like this:<br>
-*var variable_name = value*<br>
+You define a variable like this:
+``var variable_name = value``
 
 Example:
 ```
@@ -49,17 +49,17 @@ This creates a variable named 'i' with a value of 0
 
 ## Functions
 ### Function Call and Definition
-You define a function like this:<br>
-*func function_name() {...}*
+You define a function like this:
+``func function_name() {...}``
 
 Example:
 ```
 // main.vs
 func sayHi() {
     log("Hi!") // Output: Hi!
+}
 
 sayHi()
-}
 ```
 This creates a function that, when run, prints "Hi!"
 
@@ -82,7 +82,7 @@ This creates a class, which when initialized prints "MyClass Initialized!".
 ## For and while loops
 ### For loops
 You define a for loop like this:
-*for (x in y) {...}*
+``for (x in y) {...}``
 
 Example:
 ```
@@ -95,7 +95,7 @@ This prints 1 → 10<br>
 
 ### While loops
 You define a while loop like this:<br>
-*while (condition) {...}*
+``while (condition) {...}``
 
 Example:
 ```
@@ -143,7 +143,7 @@ log(math.sqrt(9)) // Output: 3.0
 ## Importing libraries and local files
 ### Built-in Libraries: Importing
 To import a built-in library, you use this:<br>
-*import library_name*
+``import library_name``
 
 Example:
 ```
@@ -183,7 +183,7 @@ dcs.coolStuff() // Output: Doing something
 
 ### Local files
 To import a local file, you need to specify the file path:<br>
-*import file_path*
+``import file_path``
 
 Example:
 ```
@@ -225,6 +225,4 @@ To learn how to make custom exception, go to: [A Guide To Exceptions](exceptions
 
 ## Run Voltascript
 To test if Voltascript works, run:
-```
-python -m runtime.shell test.vs
-```
+``python -m runtime.shell test.vs``
